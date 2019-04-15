@@ -1,0 +1,69 @@
+<ng-include src="'templates/three_column.html'"></ng-include>
+
+<script type="text/ng-template" id="content.html">
+	<div class="height100">
+		<!-- <div class="extra-credit-detail">
+			<div ng-show ="showSpinnerSlideBox">
+				<center>
+					<ion-spinner class="red small" icon="ios"></ion-spinner>
+				</center>
+			</div>
+			<ion-slides class="contest-slider" options="data.sliderOption" slider="data.sliderDelegate">
+				<ion-slide-page ng-repeat="activeBonanza in allActiveBonanzaLists" exec-on-finish-render="selesaiLoadSlider"> 
+					<div class="image-wrapper overlay-inside">
+						<div ng-show="!hideSpinnerImages($index)">
+							<center>
+								<ion-spinner class="red small" icon="ios"></ion-spinner>
+							</center>
+						</div>
+						<img ng-src="{{activeBonanza.flyerBase64}}" ng-hide="!hideSpinnerImages($index)" alt="{{activeBonanza.flyersName}}" image-on-load="refreshSize($index)"/>
+					</div>
+					<div class="card contest-info">
+						<div class="list-info head-info">
+							<div style="position:relative">
+								<i style="top: 50% !important;left: -40px !important;margin-top: -10px;" class="li ion-android-star bonanza-star"></i>
+								<h2 class="contest-title-h2">{{activeBonanza.bonanzaName}}</h2>
+							</div>
+							<p><strong>{{activeBonanza.statusStr | uppercase}}</strong> | {{'PERIOD_CONTEST_FROM' | translate}} <strong>{{activeBonanza.periodStart}}</strong> {{'PERIOD_CONTEST_TO' | translate}} <strong>{{activeBonanza.periodEnd}}</strong></p>
+							<div class="sub-lists">
+								<div class="sub-list-info">
+									<div class="html-binding" style="margin-top: 0px !important;">
+										<div ng-bind-html="activeBonanza.bonanzaDescription">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="list-info as-link" ng-click="changePageExtraCredit(activeBonanza.bonanzaContestCode)">
+							<a class="marg-bot-10">{{'SEE_DETAIL_CONTEST' | translate}}</a>
+						</div>
+					</div>
+				</ion-slide-page>
+			</ion-slides>
+		</div> -->
+		<div class="additional-pad">
+			<div class="container home contest details">
+				<div class="content contest">
+					<div class="widget mTop5 no-border pull-left" style="width: 100%;">
+						<!-- <div class="widget-head no-content pull-left">
+							<a href="#">{{'CONTEST_EXTRA_CREDIT' | translate}}</a>
+							<span class="ion ion-trophy"></span>
+						</div> -->
+						<div data-ng-repeat="bonanza in allBonanzaLists" class="list-info list-info-wide" ng-click="changePageExtraCredit(bonanza.bonanzaContestCode)">
+							<h4 style="font-weight: 900;color:rgb(99, 99, 99);">{{bonanza.bonanzaName}}
+								<small ng-if="bonanza.status=='Active'" ng-show=true class="pull-right on-active">{{bonanza.statusStr}}</small>
+								<small ng-if="bonanza.status=='Not Started'" ng-show=true class="pull-right on-expired">{{bonanza.statusStr}}</small>
+								<small ng-if="bonanza.status=='Closed'" ng-show=true class="pull-right on-expired">{{bonanza.statusStr}}</small>
+							</h4>
+							<p class="prulink-logo-text">
+								<div ng-bind-html="bonanza.bonanzaDescription"></div>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script><script type="text/javascript">
+                AnalyticsLog.logPage("prudential.mycontest.extra.credit");
+        </script>

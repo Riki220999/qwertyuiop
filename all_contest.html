@@ -1,0 +1,69 @@
+<div ng-controller="AllContestCtrl" ng-init="GoSearching_GoFiltering()">
+	<div class="tabList">
+		<div class="container home contest">
+			<div class="content policy-list">
+				<div class="filter-sec">
+					<div class="search-box">
+						<input type="text" placeholder="{{'CONTEST.SEARCH_COMPLETED' | translate}}"
+							ng-model="filterSearchString" ng-enter="onChangeFilterName()" />
+						<i class="ion-ios-search-strong"></i>
+					</div>
+					<div class="col s3">
+						<select ng-model="filterSearchYear" ng-options="year for year in getAllyears"
+							ng-change="onChangeFilter()"></select>
+					</div>
+					<div class="col s3">
+						<select ng-model="orderByItemFilter.onRequest"
+							ng-options="item.name for item in orderByItem.data"
+							ng-change="onChangeFilterItem()"></select>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<p class="contest-center" style="text-align: center;"
+					ng-show="!error500 && !listDataAllSuccess.length && !showSpinner">
+					{{'ERROR_SEARCH_MSG' | translate}}
+				</p>
+				<div style="padding:16px;" ng-show="error500 && !listDataAllSuccess.length && !showSpinner"
+					widget-errorcall on-refresh="refreshPage()"></div>
+			</div>
+			<div class="list list-empty list-spinner" data-ng-repeat="List in listDataAllSuccess">
+				<div class="item item-wrapper">
+					<div ng-click="changePageAllContestDetail(List.contests)">
+						<a class="item item-icon-left item-head-arrow">
+							<div ng-if="List.contests.isAchieve == 0" style="margin-top: -10px;">
+								<div class="list-trophy">
+									<i class="ion-ios-close" style="font-size: 28px;"></i>
+								</div>
+							</div>
+							<div ng-if="List.contests.isAchieve == 1" style="margin-top: -10px;">
+								<div class="list-trophy">
+									<i class="ion-ios-checkmark font-green" style="font-size: 28px;"></i>
+								</div>
+							</div>
+							<h5 class="marg-0" style="font-size:10px; color:rgb(99, 99, 99);padding-right: 8px;">
+								{{ 'PERIOD' | translate }} :
+								<strong>{{endDate(List.contestCategory.start_date)}} -
+									{{endDate(List.contestCategory.end_date)}}</strong></h5>
+							<h2 class="marg-0" style="font-weight: 650;padding-right: 8px;padding-top: 4px;">
+								{{List.contestCategory.name_category}}</h2>
+							<div class="ellipsis-desc text-info-normal description" ng-bind-html="List.contestCategory.description_category">
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="padding:16px;" ng-show="error500 && listDataAllSuccess.length && !showSpinner" widget-errorresult
+			on-refresh="refreshPage()"></div>
+		<div ng-show="showSpinner">
+			<center>
+				<ion-spinner class="red small" icon="ios"></ion-spinner>
+			</center>
+		</div>
+		<!-- <ion-infinite-scroll ng-if="MoreItemsAvailable() && !error500" on-infinite="loadMore()"></ion-infinite-scroll> -->
+	</div>
+</div>
+
+<script type="text/javascript">
+	AnalyticsLog.logPage("prudential.mycontest.all");
+</script>

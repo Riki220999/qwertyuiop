@@ -1,0 +1,140 @@
+<ng-include src="'templates/three_column.html'"></ng-include>
+
+<script type="text/ng-template" id="content.html">
+
+		<div class="height100">
+			<div class="container home contest details">
+				<div class="image-wrapper overlay-inside">
+					<div ng-show="showSpinnerImages">
+						<center>
+							<ion-spinner class="red small" icon="ios"></ion-spinner>
+						</center>
+					</div>
+					<img ng-src="{{image}}" ng-hide="showSpinnerImages"/>
+				</div>
+			</div>
+			<div class="additional-pad">
+				<div class="container home contest details">
+					<div class="content contest">
+						<div class="list-info head-info" style="border-bottom:solid 1px #e5e5e5">
+								<div style="position:relative">
+										<div ng-if="isAchieve == 0">
+											<div class="list-trophy">
+												<i class="ion-ios-close" style="font-size: 36px;"></i>
+											</div>
+										</div>
+										<div ng-if="isAchieve == 1">
+											<div class="list-trophy">
+												<i class="ion-ios-checkmark font-green" style="font-size: 36px;"></i>
+											</div>
+										</div>
+										<h2 class="contest-title-h2">{{DataList.detail.name_contest}}</h2>
+										<div style="font-size: 11px;">
+											{{'SIDEBAR_CONTEST' | translate}} {{'MONITORING_DUEDATE_CONTEST' | translate}}
+											<strong>{{endDate(DataList.detail.end_date)}}</strong>
+										</div>
+								</div>	
+								<div style="clear:both"></div>
+									<div class="sub-contest">
+										<div class="contest-progressbar">
+											<div class="content-progress text-center inline-type" data-ng-repeat="listAlias in getDataMCD">
+												<div ng-click="selectChild(listAlias)" style="cursor:pointer;">
+													<div style="margin-top: 4px;">
+														<div class="prog-spinner prog-{{(listAlias.detail.progress/listAlias.detail.contestsCriteria.length) * 100}}">
+															<p class="ng-binding">{{listAlias.detail.progress}}/{{listAlias.detail.contestsCriteria.length}}</p>
+														</div>
+													</div>
+														<p class="alias">{{listAlias.detail.alias}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div ng-if="isMyContest == 'false'" class="sub-list-info with-content-progress">
+											<i class="li status-progress information" style="top: 29px;"></i>
+											<p style="font-size: 14px; margin-top: 10px;margin-bottom: 0px;">{{'CONTEST.NOT_ELIGIBLE_CONTEST' | translate}} Kontes ini hanya untuk {{listAlias.contestsDetail.agentType}}
+											</p>
+									</div>
+								</div>
+						</div>
+						<div data-ng-repeat="List in DataList.detail.contestsCriteria">
+								<div class="list-info with-content-progress">
+									<div class="list-info-head">
+										<div>
+											<div style='font-size:7.5px;' class="prog-spinner prog-{{ DataList.target[0][List.criteriaCategory.name_column_achievement_percentage] ? DataList.target[0][List.criteriaCategory.name_column_achievement_percentage] : '0' }}">
+												<p class="ng-binding">{{ DataList.target[0][List.criteriaCategory.name_column_achievement_percentage] ? DataList.target[0][List.criteriaCategory.name_column_achievement_percentage] : '0' }}%</p>
+											</div>
+										</div>
+										<p class="contest-child-title">{{List.criteriaCategory.name_criteria_category}}</p>
+										<div style="font-size: 11px;margin-right: 18px; margin-top: 5px;">
+											<small>{{'ACHIEVEDNOW_CONTEST' | translate}}: <strong>{{ DataList.target[0][List.criteriaCategory.name_column_achievement] ? DataList.target[0][List.criteriaCategory.name_column_achievement] : '0' | formatNumber:2}}</strong> |
+											{{'Target' | translate}}: <strong>{{ DataList.target[0][List.criteriaCategory.name_column_target] ? DataList.target[0][List.criteriaCategory.name_column_target] : '0' | formatNumber:2 }}</strong></small>
+											<br>
+											<small>{{ 'CONTEST.LEFTOVER' | translate}} <strong>{{ List.leftOvers | formatNumber:2 }}</strong></small>
+										</div>
+									</div>
+								</div>
+						</div>
+						<div class="mTop5 no-border pull-left" style="width: 100%;">
+							<div ng-if="MyContestDetails.contest.extraCreditFlag==true && MyContestDetails.isEligible" ng-show=true class="widget-head no-content marg-bot-10" ng-click="changePageMyContestExtraCredit(MyContestDetails.contest.currentContestCode)">
+								<i class="ion-ios-arrow-forward"></i>
+								<a>{{'EXTRA_CREDITS_CONTEST' | translate}}</a>
+								<span class="ion ion-clipboard" style="font-size: 22px; bottom: 10px"></span>
+							</div>
+							<div class="widget">
+								<v-accordion class="vAccordion--default custom-pru widget-collapse">
+									<v-pane expanded>
+										<v-pane-header>
+											{{'CONTEST_DESCRIPTION' | translate}} <span class="li ion-trophy widget-icon"></span>
+										</v-pane-header>
+										<v-pane-content>
+											<div class="html-binding widget-content" style="padding-top: 5px;">
+												<div class="text-justify" ng-bind-html="DataList.detail.description_contest"></div>
+											</div>
+										</v-pane-content>
+									</v-pane>
+								</v-accordion>
+							</div>
+							<div class="widget">
+								<v-accordion class="vAccordion--default custom-pru widget-collapse">
+									<v-pane expanded>
+										<v-pane-header>
+											{{'REWARD_CONTEST' | translate}} <span class="li ion-cube widget-icon"></span>
+										</v-pane-header>
+										<v-pane-content>
+											<div class="html-binding widget-content" style="padding-top: 5px;">
+												<div class="text-justify" ng-bind-html="DataList.detail.description_reward"></div>
+											</div>
+										</v-pane-content>
+									</v-pane>
+								</v-accordion>
+							</div>
+							<div class="widget">
+								<v-accordion class="vAccordion--default custom-pru widget-collapse">
+									<v-pane expanded>
+										<v-pane-header>
+											{{'CONDITIONS_CONTEST' | translate}} <span class="li ion-clipboard widget-icon"></span>
+										</v-pane-header>
+										<v-pane-content>
+											<div class="html-binding widget-content" style="padding-top: 5px;">
+												<div class="text-justify" ng-bind-html="DataList.detail.term_and_condition"></div>
+											</div>
+											<div ng-if="DataList.detail.file_contest" ng-show=true class="list-info as-link widget-content">
+												<a ng-click="openPDF(DataList.detail.file_contest)"><i class="link-icon ion-document-text"></i><span class="link-text">{{'VIEW_CONTEST_PDF' | translate}}</span></a>
+											</div>
+										</v-pane-content>
+									</v-pane>
+								</v-accordion>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="backdrop-place"></div>
+				<div class="load-spinner">
+					<div class="cssload-double-torus"></div>
+				</div>
+			</div>
+			
+</script>
+<script type="text/javascript">
+	AnalyticsLog.logPage("prudential.mycontest.detail");
+</script>

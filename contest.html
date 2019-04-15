@@ -1,0 +1,49 @@
+<ng-include src="'templates/three_column.html'"></ng-include> 
+
+<script type="text/ng-template" id="content.html">
+		<div class="container home contest">
+			<div class="content contest" ng-include="currentContestTab">
+			</div>
+		</div>
+</script>
+
+<script type="text/ng-template" id="headerTab.html">   
+  <div class="tabs-non-scroll full-width-tab">
+    <div class="top-tabs tabs-striped tabs-top tabs-background-light tabs-color-assertive">
+      <div class="papertab tabs">
+        <div class="tab-scrolling pru-logo text-center" onload="navAnimation()">
+          <a ng-repeat="contestTab in contestsTabs" class="tab-item" on-tap="nextTab($event, contestTab)" data-tap-disabled="true" ng-class="{active:isActiveTab(contestTab.url)}">
+            <span ng-bind-html="contestTab.title"></span>
+          </a>
+        </div>
+      </div>
+    </div> 
+  </div>  
+</script>
+
+<!-- <ion-view cache-view="false" view-title="" class="tabs-non-scroll">
+	<ion-header-bar align-title="left" class="bar-assertive bar-plain">
+		<a class="left-buttons" ng-click="goBackKeHome()">
+			<button  class="button button-icon icon ion-ios-arrow-back"></button>
+		</a>
+		<h1 class="title text-uppercase" translate>CONTEST.HEADER_HOME</h1>
+	</ion-header-bar>	
+	<span class="grey-space"></span>
+	<div class="top-tabs tabs-striped tabs-top tabs-background-light tabs-color-assertive">
+		<div class="papertab tabs">
+			<div class="tab-scrolling pru-logo" onload="navAnimation()">
+				<a ng-repeat="contestTab in contestsTabs" href="#" class="tab-item" ng-class="{active:isActiveTab(contestTab.url)}" ng-click="nextTab($event, contestTab)">
+					{{contestTab.title}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<ion-content id="contest-tab">
+
+	</ion-content>
+	<p class="small mBottom0" style="line-height: 28px;">{{'CONTEST.API_DISCLAIMER' | translate}}</p>
+	<div class="backdrop-place"></div>
+	<div class="load-spinner">
+		<div class="cssload-double-torus"></div>
+	</div>
+</ion-view> -->

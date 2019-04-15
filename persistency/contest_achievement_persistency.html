@@ -1,0 +1,274 @@
+<ng-include src="'templates/three_column.html'"></ng-include>
+
+<script type="text/ng-template" id="content.html">
+    <div class="content persistency">
+        <p class="small mLeft5">{{'DATA_UPDATE' | translate}} {{lastUpdate}} </p>
+        <div id="persistensi-individu-section">
+            <div class="widget mTop5  no-border">
+                <div class="widget-head no-content">
+                    <a href="">persistensi individu</a>
+                    <span class="li ion-person"></span>
+                </div>
+            </div>
+
+            <div class="spaced-white-box no-button no-border" style="padding-bottom: 0px;">
+                <div class="speed-chart-title-wrapper">
+                    <span class="width-50 text-center speed-chart-title">{{'OLD_PERSISTENCY' | translate}}</span>
+                    <span class="width-50 text-center speed-chart-title">{{'ROLLING_PERSISTENCY' | translate}}</span>
+                </div>
+                <div class="speed-chart-container">
+                    <speed-chart options="chartDataPersistensiIndividu" class="speed-chart"></speed-chart>
+                </div>
+                <div class="speed-chart-container">
+                    <speed-chart options="chartDataRollingIndividu" class="speed-chart"></speed-chart>
+                </div>
+                
+                <div class="bordered-text-section no-border mTop0 pBottom0">
+                    <div class="widget-content with-rolling pLeft0 pBottom0 display-block width-100">
+                    <ul>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label><em class="font-italic">Issued</em> API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Individu.apiIssuedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Individu.apiIssuedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Individu.apiIssuedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Individu.apiIssuedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label>Kenaikan API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Individu.apiIncreasedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Individu.apiIncreasedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Individu.apiIncreasedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Individu.apiIncreasedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label>Penurunan API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Individu.apiDecreasedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Individu.apiDecreasedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Individu.apiDecreasedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Individu.apiDecreasedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label><em class="font-italic">Lapsed</em> API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Individu.apiLapsedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Individu.apiLapsedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Individu.apiLapsedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Individu.apiLapsedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a ng-click="goToAchievementPersistencyList()" class="link-button pTop5 btn-font-sm">Lihat Rincian Persistensi</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="persistensi-unit-section">
+            <div class="widget mTop5 no-border" style="padding-bottom: 0px;" ng-show="UnitByAgentType">
+                <div class="widget-head no-content">
+                    <a href="">persistensi unit</a>
+                    <span class="li ion-person-stalker"></span>
+                </div>
+            </div>
+
+            <div class="spaced-white-box no-button no-border" style="padding-bottom: 0px;" ng-show="UnitByAgentType">
+                <div class="speed-chart-title-wrapper">
+                    <span class="width-50 text-center speed-chart-title">{{'OLD_PERSISTENCY' | translate}}</span>
+                    <span class="width-50 text-center speed-chart-title">{{'ROLLING_PERSISTENCY' | translate}}</span>
+                </div>
+                <div class="speed-chart-container">
+                    <speed-chart options="chartDataPersistensiUnit" class="speed-chart"></speed-chart>
+                </div>
+                <div class="speed-chart-container">
+                    <speed-chart options="chartDataRollingUnit" class="speed-chart"></speed-chart>
+                </div>
+                
+                <div class="bordered-text-section no-border mTop0 pBottom0">
+                <div class="widget-content with-rolling pLeft0 pBottom0 display-block width-100">
+                    <ul>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label><em class="font-italic">Issued</em> API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Unit.apiIssuedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Unit.apiIssuedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Unit.apiIssuedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Unit.apiIssuedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label>Kenaikan API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Unit.apiIncreasedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Unit.apiIncreasedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Unit.apiIncreasedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Unit.apiIncreasedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label>Penurunan API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Unit.apiDecreasedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Unit.apiDecreasedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Unit.apiDecreasedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Unit.apiDecreasedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label><em class="font-italic">Lapsed</em> API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Unit.apiLapsedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Unit.apiLapsedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Unit.apiLapsedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Unit.apiLapsedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                     <a href="#/contest_group_unit_persistency/U/{{contestCode}}/{{}}" class="link-button pTop5 btn-font-sm">Lihat Rincian Persistensi</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="persistensi-grup-section">
+            <div class="widget mTop5 no-border" ng-show="GroupByAgentType" style="padding-bottom: 0px;">
+                <div class="widget-head no-content">
+                    <a href="">persistensi grup</a>
+                    <span class="li ion-ios-people font20"></span>
+                </div>
+            </div>
+
+            <div class="spaced-white-box no-button no-border" style="padding-bottom: 0px;" ng-show="GroupByAgentType">
+                <div class="speed-chart-title-wrapper">
+                    <span class="width-50 text-center speed-chart-title">{{'OLD_PERSISTENCY' | translate}}</span>
+                    <span class="width-50 text-center speed-chart-title">{{'ROLLING_PERSISTENCY' | translate}}</span>
+                </div>
+                <div class="speed-chart-container">
+                    <speed-chart options="chartDataPersistensiGroup" class="speed-chart"></speed-chart>
+                </div>
+                <div class="speed-chart-container">
+                    <speed-chart options="chartDataRollingGroup" class="speed-chart"></speed-chart>
+                </div>
+
+                <div class="bordered-text-section no-border mTop0 pBottom0">
+                <div class="widget-content with-rolling pLeft0 pBottom0 display-block width-100">
+                    <ul>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label><em class="font-italic">Issued</em> API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Group.apiIssuedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Group.apiIssuedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Group.apiIssuedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Group.apiIssuedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label>Kenaikan API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Group.apiIncreasedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Group.apiIncreasedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Group.apiIncreasedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Group.apiIncreasedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label>Penurunan API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Group.apiDecreasedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Group.apiDecreasedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Group.apiDecreasedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Group.apiDecreasedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="border-bottom-grey pBottom10 pTop10"> 
+                            <label><em class="font-italic">Lapsed</em> API</label>
+                            <div class="two-content not-row pRight0">
+                                <div class="width-49 font-14 sub text-left">
+                                    <div>
+                                        <label>{{(data.Group.apiLapsedCurrent==-1)?"N/A":"Rp. "+formatMoney(data.Group.apiLapsedCurrent)}}</label>
+                                    </div>
+                                </div>
+                                <div  class="width-49 font-14 sub text-right">
+                                    <div>
+                                        <label>{{(data.Group.apiLapsedRolling==-1)?"N/A":"Rp. "+formatMoney(data.Group.apiLapsedRolling)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                     <a href="#/contest_group_unit_persistency/G/{{contestCode}}/{{}}" class="link-button pTop5 btn-font-sm">Lihat Rincian Persistensi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/javascript" src="js/ionic/all-d3js.js"></script>

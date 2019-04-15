@@ -1,0 +1,92 @@
+<ng-include src="'templates/three_column.html'"></ng-include>
+
+<script type="text/ng-template" id="content.html">
+	<div class="height100">
+		<div class="container home contest details">
+			<div class="image-wrapper overlay-inside">
+				<div ng-show="showSpinnerImages">
+					<center>
+						<ion-spinner class="red small" icon="ios"></ion-spinner>
+					</center>
+				</div>
+				<img ng-src="{{ContestExtraCreditDetails.bonanza.flyerBase64}}" ng-hide="showSpinnerImages" alt="{{ContestExtraCreditDetails.bonanza.flyersName}}" />
+			</div>
+		</div>
+		<div class="additional-pad">
+			<div class="container home contest details">
+				<div class="content contest">
+					<div class="list-info head-info">
+						<div style="position:relative">
+							<i style="top: 50% !important;left: -40px !important;margin-top: -20px;" class="li ion-android-star bonanza-star"></i>
+							<h2 class="contest-title-h2">{{ContestExtraCreditDetails.bonanza.bonanzaName}}</h2>
+						</div>
+						<p><strong>{{ContestExtraCreditDetails.bonanza.statusStr | uppercase}}</strong> | {{'PERIOD_CONTEST_FROM' | translate}} <strong>{{ContestExtraCreditDetails.bonanza.periodStart}}</strong> {{'PERIOD_CONTEST_TO' | translate}} <strong>{{ContestExtraCreditDetails.bonanza.periodEnd}}</strong></p>
+						<div class="sub-lists data-ng-repeat=" data-ng-repeat="ContestExtraCreditDetailChild in ContestExtraCreditDetails.bonanza.params">
+							<div ng-if="ContestExtraCreditDetailChild.type=='spaj'" ng-show=true class="sub-list-info with-content-progress">
+								<div class="content-progress">
+									<i class="li status-progress information" style="top: 16px;left: -2px"></i>
+								</div>
+
+								<h3 class="text-middle"><strong>{{ContestExtraCreditDetailChild.proposal}}</strong> {{'CONTEST.SPAJ_SUBMITTED' | translate}} | <strong>{{ContestExtraCreditDetailChild.policy}}</strong>								{{'CONTEST.STATUS_POLICY' | translate}}</h3>
+							</div>
+						</div>
+						<div class="sub-lists">
+							<div class="sub-list-info">
+								<div class="html-binding" style="margin-top: 0px !important;">
+									<div class="text-justify" ng-bind-html="ContestExtraCreditDetails.bonanza.bonanzaDescription"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="mTop5 no-border pull-left" style="width: 100%;">
+						<div class="widget">
+							<v-accordion class="vAccordion--default custom-pru widget-collapse">
+								<v-pane expanded>
+									<v-pane-header>
+										{{'CONTEST.BONUS_EXTRA_CREDIT' | translate}} <span class="li ion-clipboard widget-icon"></span>
+									</v-pane-header>
+									<v-pane-content>
+										<div class="html-binding widget-content" style="padding-top: 5px;">
+											<div class="text-justify" ng-bind-html="ContestExtraCreditDetails.bonanzaAwardsDescription"></div>
+										</div>
+									</v-pane-content>
+								</v-pane>
+							</v-accordion>
+						</div>
+
+						<div class="widget">
+							<v-accordion class="vAccordion--default custom-pru widget-collapse">
+								<v-pane expanded>
+									<v-pane-header>
+										{{'CONTEST.TERM_AND_CONDITIONS' | translate}} <span class="li ion-clipboard widget-icon"></span>
+									</v-pane-header>
+									<v-pane-content>
+										<div class="html-binding widget-content" style="padding-top: 5px;">
+											<div class="text-justify" ng-bind-html="ContestExtraCreditDetails.termCondition"></div>
+										</div>
+										<div ng-if="ContestExtraCreditDetails.termConditionPdfFileName" ng-show=true class="list-info as-link">
+											<a ng-click="openPdf(ContestExtraCreditDetails.termConditionPdfFileName, ContestExtraCreditDetails.termConditionPdfName)"><i class="link-icon ion-document-text"></i><span class="link-text">{{'CONDITIONS_CONTEST_PDF' | translate}}</span></a>
+										</div>
+									</v-pane-content>
+								</v-pane>
+							</v-accordion>
+						</div>
+
+						<!-- <div ng-show="ContestExtraCreditDetails.showPolicyProposal" class="widget-head no-content pull-left marg-bot-10" ng-click="changePagePolicyList(ContestExtraCreditDetails.bonanza.bonanzaContestCode)">
+							<i class="ion-ios-arrow-forward"></i>
+							<a>{{'POLICY_LIST_CONTEST' | translate}}</a>
+							<span class="ion ion-clipboard"></span>
+						</div> -->
+					</div>
+				</div>
+			</div>
+			<div class="backdrop-place"></div>
+			<div class="load-spinner">
+				<div class="cssload-double-torus"></div>
+			</div>
+		</div>
+	</div>
+</script><script type="text/javascript">
+                AnalyticsLog.logPage("prudential.mycontest.extra.credit.detail");
+        </script>

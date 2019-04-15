@@ -1,0 +1,48 @@
+<ng-include src="'templates/three_column.html'"></ng-include>
+<script type="text/ng-template" id="content.html">
+    <p class="small" style="margin-left: 10px;">{{'DATA_UPDATE' | translate}} {{lastUpdate}}</p>
+    <div class="content" style="margin-left: 10px;">
+        <div class="spaced-white-box spaced-white-box no-button">
+            <div ng-show ="showSpinner">
+                <center>
+                    <ion-spinner class="red small" icon="ios"></ion-spinner>
+                </center>
+            </div>
+            <table width="100%">
+                <tr class="apenet" data-ng-if="MyContestAPIDetail.total > 0">
+                    <td>APE NET</td>
+                    <td>Rp.</td>
+                    <td> {{MyContestAPIDetail.totalValue}}</td>
+                </tr>
+                <tr class="apenet" data-ng-if="MyContestAPIDetail.regular > 0">
+                    <td>API</td>
+                    <td>Rp.</td>
+                    <td> {{MyContestAPIDetail.regularValue}}</td>
+                </tr>
+                <tr class="apenet" data-ng-if="MyContestAPIDetail.saver > 0">
+                    <td>SAVER</td>
+                    <td>Rp.</td>
+                    <td> {{MyContestAPIDetail.saverValue}}</td>
+                </tr>
+                <tr class="apenet" data-ng-if="MyContestAPIDetail.topup > 0">
+                    <td>TOP UP</td>
+                    <td>Rp.</td>
+                    <td> {{MyContestAPIDetail.topupValue}}</td>
+                </tr>
+                <tr class="apenet" data-ng-if="MyContestAPIDetail.spi > 0">
+                    <td>SPI</td>
+                    <td>Rp.</td>
+                    <td> {{MyContestAPIDetail.spiValue}}</td>
+                </tr>
+                <tr class="apenet" data-ng-repeat="bonanzaItem in MyContestAPIDetail.bonanza" data-ng-if="MyContestAPIDetail.bonanza.length > 0">
+                    <td>{{bonanzaItem.title}}</td>
+                    <td>Rp.</td>
+                    <td> {{bonanzaItem.value}}</td>
+                </tr>
+            </table>
+            <a ng-click="changePageProductionDetail()" class="btn-green mTop10 bg-red waves-effect">
+               {{'VIEW_DETAILS' | translate}}
+           </a>
+        </div>
+    </div>
+</script>

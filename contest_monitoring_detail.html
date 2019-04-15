@@ -1,0 +1,167 @@
+<ng-include src="'templates/three_column.html'"></ng-include>
+
+<script type="text/ng-template" id="content.html">
+		<div class="container home contest details">
+			<div class="image-wrapper overlay-inside">
+				<div ng-show="showSpinnerImages">
+					<center>
+						<ion-spinner class="red small" icon="ios"></ion-spinner>
+					</center>
+				</div>
+				<img ng-src="{{ContestMonitoringDetail.contest.flyersBase64}}" ng-hide="showSpinnerImages" alt="{{ContestMonitoringDetail.contest.flyersName}}" />
+			</div>
+		</div>
+		<div class="additional-pad">
+			<div class="container home contest details">
+				<div class="content contest">
+					<div class="list-info head-info">
+						<div style="position:relative">
+							<div ng-if="ContestMonitoringDetail.contest.achieveStatus == 0">
+								<div class="list-trophy">
+									<i class="ion-ios-close" style="font-size: 36px;"></i>
+								</div>
+							</div>
+							<div ng-if="ContestMonitoringDetail.contest.achieveStatus == 1">
+								<div class="list-trophy">
+									<i class="ion-ios-checkmark font-green" style="font-size: 36px;"></i>
+								</div>
+							</div>
+							<h2 class="contest-title-h2">{{ContestMonitoringDetail.contest.contestName}}</h2>
+						</div>
+							<div ng-if="ContestMonitoringDetail.contest.isDiff == true" ng-show="true" style="font-size: 11px;">
+								{{'SIDEBAR_CONTEST' | translate}} {{'MONITORING_DUEDATE_CONTEST' | translate}} 
+								<strong>{{ContestMonitoringDetail.contest.periodEndDiff}}</strong>
+								<p style="font-size: 11px;">
+									(<strong>{{ContestMonitoringDetail.contest.daysLeft}}</strong> {{'MONITORING_DAYSLEFT_CONTEST' | translate}})
+								</p>
+							</div>
+							<div ng-if="ContestMonitoringDetail.contest.isDiff == false" ng-show="true" style="font-size: 11px;">
+								{{'SIDEBAR_CONTEST' | translate}} {{'MONITORING_DUEDATE_CONTEST' | translate}}  <strong>{{ContestMonitoringDetail.contest.daysLeft}}</strong> 
+							</div>
+						<div class="sub-lists">
+							<div ng-if="ContestMonitoringDetail.isParent == false" class="sub-list-info with-content-progress">
+								<!-- <i ng-if="ContestMonitoringDetail.contest.achieved == false && ContestMonitoringDetail.contest.achieveStatus == 0" ng-show=true style="margin-bottom: 7px; font-size: 36px;" class="icon ion-ios-close assertive"></i>
+								<i ng-if="ContestMonitoringDetail.contest.achieved == true && ContestMonitoringDetail.contest.achieveStatus == 1" ng-show=true style="margin-bottom: 7px; font-size: 36px;" class="icon ion-ios-checkmark balanced"></i>
+								<i ng-if="ContestMonitoringDetail.contest.achieved == true && ContestMonitoringDetail.contest.achieveStatus == 2" ng-show=true style="margin-bottom: 7px; font-size: 36px;" class="icon ion-ios-checkmark gray"></i>
+								<h3 ng-if="ContestMonitoringDetail.contest.overall.lineStatus=='have'" ng-show=true>
+									{{ContestMonitoringDetail.contest.overall.alias}}
+								</h3> -->
+								<div class="content-progress">
+									<i ng-if="ContestMonitoringDetail.contest.achieved == false && ContestMonitoringDetail.contest.achieveStatus == 0" ng-show=true style="margin-bottom: 7px; font-size: 36px;" class="icon ion-ios-close assertive"></i>
+									<i ng-if="ContestMonitoringDetail.contest.achieved == true && ContestMonitoringDetail.contest.achieveStatus == 1" ng-show=true style="margin-bottom: 7px; font-size: 36px;" class="icon ion-ios-checkmark font-green"></i>
+								</div>
+								<h3 ng-if="ContestMonitoringDetail.contest.overall.lineStatus=='have'" ng-show=true>
+									{{ContestMonitoringDetail.contest.overall.alias}}
+								</h3>
+								<h3 class="text-middle">{{ContestMonitoringDetail.contest.contestStatus}} | {{'TAB_MONITORING_CONTEST' | translate}}</h3>
+							</div>
+							<div ng-if="ContestMonitoringDetail.isParent == true">
+								<div class="sub-contest">
+									<div class="contest-progressbar">
+										<div class="content-progress text-center inline-type" data-ng-repeat="SubContest in ContestMonitoringDetail.SubContests">
+											<div ng-if="SubContest.achieved == false && SubContest.achieveStatus == 0" ng-show=true style="margin-bottom: 7px;">
+												<i class="icon ion-ios-close assertive" style="font-size: 36px;"></i>
+											</div>
+											<div ng-if="SubContest.achieved == true && SubContest.achieveStatus == 1" ng-show=true style="margin-bottom: 7px;">
+												<i class="icon ion-ios-checkmark font-green" style="font-size: 36px;"></i>
+											</div>
+											<div ng-if="SubContest.achieved == true && SubContest.achieveStatus == 2" ng-show=true style="margin-bottom: 7px;">
+												<i class="icon ion-ios-checkmark gray" style="font-size: 36px;"></i>
+											</div>
+											<p class="alias" ng-class="{ 'active' : SubContest.isActive == true }">{{SubContest.alias}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div data-ng-repeat="ContestMonitoringDetailChild in ContestMonitoringDetail.contest.params" ng-click="changePageParameter(ContestMonitoringDetailChild.key ? ContestMonitoringDetailChild.key : ContestMonitoringDetailChild.type)">
+						<div class="list-info with-content-progress">
+							<div ng-show=true class="list-info-head">
+								<div ng-if="ContestMonitoringDetailChild.progressCheckType=='percentage' || ContestMonitoringDetailChild.progressCheckType=='progress'" ng-show=true>
+									<div class="prog-spinner {{ContestMonitoringDetailChild.progType}}-{{ContestMonitoringDetailChild.percentageRound}}">
+										<p>{{ContestMonitoringDetailChild.percentage}}<small>%</small></p>
+									</div>
+								</div>
+								<div ng-if="contestParam.key != 'other'">
+								<i ng-if="ContestMonitoringDetailChild.progressCheckType=='check'" ng-show=true ng-class="{'li status-progress unsuccess':!ContestMonitoringDetailChild.achieved, 'li status-progress success':ContestMonitoringDetailChild.achieved}" style="top: 14px;left: -34px;"></i>
+								<i ng-if="ContestMonitoringDetailChild.type != 'ranking'" class="ion-ios-arrow-forward pull-right" style="font-size: 24px; color: #ccc;"></i>
+								<i ng-if="ContestMonitoringDetailChild.type == 'ranking' && ContestMonitoringDetailChild.actual > 0" class="ion-ios-arrow-forward pull-right" style="font-size: 24px; color: #ccc;"></i>
+								</div>
+								<p class="contest-child-title">{{ContestMonitoringDetailChild.title | translate}}</p>
+								<div ng-bind-html='ContestMonitoringDetailChild.subtitle' style="font-size: 14px;margin-right: 30px;">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mTop5 no-border pull-left" style="width: 100%;">
+						<div class="widget">
+							<v-accordion class="vAccordion--default custom-pru widget-collapse">
+								<v-pane expanded>
+									<v-pane-header>
+										{{'CONTEST_DESCRIPTION' | translate}} <span class="li ion-trophy widget-icon"></span>
+									</v-pane-header>
+									<v-pane-content>
+										<div class="html-binding widget-content" style="padding-top: 5px;">
+											<div class="text-justify" ng-bind-html="ContestMonitoringDetail.contest.contestDescription"></div>
+										</div>
+									</v-pane-content>
+								</v-pane>
+							</v-accordion>
+						</div>
+
+						<div class="widget">
+							<v-accordion class="vAccordion--default custom-pru widget-collapse">
+								<v-pane expanded>
+									<v-pane-header>
+										{{'REWARD_CONTEST' | translate}} <span class="li ion-cube widget-icon"></span>
+									</v-pane-header>
+									<v-pane-content>
+										<div class="html-binding widget-content" style="padding-top: 5px;">
+											<div class="text-justify" ng-bind-html="ContestMonitoringDetail.contest.awardsDescription"></div>
+										</div>
+									</v-pane-content>
+								</v-pane>
+							</v-accordion>
+						</div>
+
+						<div class="widget">
+							<v-accordion class="vAccordion--default custom-pru widget-collapse">
+								<v-pane expanded>
+									<v-pane-header>
+										{{'CONDITIONS_CONTEST' | translate}} <span class="li ion-clipboard widget-icon"></span>
+									</v-pane-header>
+									<v-pane-content>
+										<div class="html-binding widget-content" style="padding-top: 5px;">
+											<div class="text-justify" ng-bind-html="ContestMonitoringDetail.contest.termCondition"></div>
+										</div>
+										<div ng-if="ContestMonitoringDetail.contest.termConditionPdfFileName" ng-show=true class="list-info as-link widget-content">
+											<a ng-click="openPdf(ContestMonitoringDetail.contest.termConditionPdfFileName, ContestMonitoringDetail.contest.termConditionPdfName)"><i class="link-icon ion-document-text"></i><span class="link-text">{{'CONDITIONS_CONTEST_PDF' | translate}}</span></a>
+										</div>
+									</v-pane-content>
+								</v-pane>
+							</v-accordion>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="backdrop-place"></div>
+			<div class="load-spinner">
+				<div class="cssload-double-torus"></div>
+			</div>
+		</div>
+</script>
+
+
+<!-- <ion-view cache-view="false" view-title="<h2>{{'CONTEST.DETAIL_CONTEST_MONITORING' | translate}}</h2>" class="no-grey-strip">
+	<ion-header-bar align-title="left" class="bar-assertive">
+		<a class="left-buttons" ng-click="goBackContest()">
+			<button class="button button-icon icon ion-ios-arrow-back"></button>
+		</a>
+		<h1 class="title text-uppercase" translate>CONTEST.MONITORING_DETAIL</h1>
+	</ion-header-bar>
+	<span class="grey-space"></span>
+	<ion-content scrollbar-y="true" direction="y" scroll="true" has-bouncing="true">
+		
+	</ion-content>
+</ion-view> -->

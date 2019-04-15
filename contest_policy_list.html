@@ -1,0 +1,46 @@
+<ng-include src="'templates/three_column.html'"></ng-include>
+
+<script type="text/ng-template" id="content.html">
+		<div class="card" ng-init="GoSearching_GoFiltering()">
+			<div class="container home contest proposal-custom">
+				<div class="content policy-list">
+					<div class="filter-sec">
+						<div class="search-box">
+							<input type="text" placeholder="{{'SEARCH_PROD' | translate}}" ng-model="filterSearchString" ng-enter="GoSearching_GoFiltering()"/>
+							<i class="ion-ios-search-strong"></i>
+						</div>
+						<div class="col s3">
+							<select ng-model="sortItem.onRequest" ng-options="item.name for item in filterPolicy.data" ng-change="GoSearching_GoFiltering()"></select> 
+						</div>
+						<div class="col s3">
+							<select ng-model="orderItem.onRequest" ng-options="item.name for item in filterDirection.data" ng-change="GoSearching_GoFiltering()"></select> 
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="content spaced-white-box no-button">
+					<p class="small" ng-show="listPolicyAll.length">
+						{{'DATA_UPDATE' | translate}}: {{lastUpdate}}
+					</p>
+					<div class="bordered-text-section" data-ng-repeat="listPol in listPolicyAll | limitTo:numberOfItemsToDisplay track by $index" ng-click="changePage(listPol.policyNumber)">
+						<p2>
+							<strong>{{listPol.policyHolderName}}</strong><br/>
+							{{'POLICY_NUMBER' | translate}}: {{listPol.policyNumber}}<br/>
+							{{'CONTEST_SUBMITTED_DATE' | translate}} <strong>{{listPol.proposalReceivedDate}}</strong></br>
+							<strong>{{(listPol.productCode).substring(0,3)}}</strong><em style="font-style:italic">{{listPol.PruCodeEnd}}</em></br>
+						</p2>
+						<p2 class="proposal-status">
+							<span class="on-proposal">{{(listPol.policyStatusDesc)}}</span><br/>
+						</p2>
+					</div>
+					<div ng-show="!listPolicyAll.length && !inProgress"><center>{{'ERROR_SEARCH_MSG' | translate}}</center></div>
+					<div ng-show ="showSpinner">
+						<center>
+							<ion-spinner class="red small" icon="ios"></ion-spinner>
+						</center>
+					</div>
+				</div>
+				<ion-infinite-scroll ng-if="moreItemsAvailable()" on-infinite="loadMore()"></ion-infinite-scroll>
+			</div>
+		</div>
+</script>

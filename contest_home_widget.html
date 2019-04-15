@@ -1,0 +1,39 @@
+<div ng-class="{'widget-content collapse1 no-animate':widgetItem.collapseValue,'widget-content collapse1 collapse no-animate':!widgetItem.collapseValue}"
+	ng-if="!loadingMyContest && !ListAllMyContests.length" widget-errorresult on-refresh="init()">
+</div>
+
+<div class="news-list contest" data-ng-repeat="Contest in ListAllMyContests"
+	ng-click="changePageHomeContestDetail(Contest.contests)">
+	<a>
+		<div ng-if="Contest.contests.isAchieve == 0" style="margin-top: -10px;">
+			<div class="list-trophy">
+				<i class="ion-ios-close" style="font-size: 36px;"></i>
+			</div>
+		</div>
+		<div ng-if="Contest.contests.isAchieve == 1" style="margin-top: -10px;">
+			<div class="list-trophy">
+				<i class="ion-ios-checkmark font-green" style="font-size: 36px;"></i>
+			</div>
+		</div>
+		<h2 class="home-contest-title">{{Contest.contestCategory.name_category}}</h2>
+		<div class="sub-contest">
+			<div class="contest-progressbar" data-ng-repeat="SubContest in Contest.contests">
+				<div class="content-progress text-center inline-type">
+					<div ng-show=true style="margin-top: 7px;">
+						<div
+							class="prog-spinner prog-{{ (SubContest.detail.myProgress / SubContest.detail.contestsCriteria.length) * 100 }}">
+							<p>{{SubContest.detail.myProgress}}/{{SubContest.detail.contestsCriteria.length}}</p>
+						</div>
+					</div>
+					<p class="alias">{{SubContest.detail.alias}}</p>
+				</div>
+				<div style="font-size: 11px;margin-right: 18px; margin-top: 5px;">
+					<small>{{'ACHIEVEDNOW_CONTEST' | translate}}: <strong>{{ SubContest[0].target[0][contestParam.criteriaCategory.name_column_achievement] | formatNumber:2}}</strong> |
+					{{'Target' | translate}}: <strong>{{ SubContest[0].target[0][contestParam.criteriaCategory.name_column_target] | formatNumber:2 }}</strong></small>
+					<br>
+					<small>{{ 'CONTEST.LEFTOVER' | translate}} <strong>{{ contestParam.leftOvers | formatNumber:2 }}</strong></small>
+				</div>
+			</div>
+		</div>
+	</a>
+</div>

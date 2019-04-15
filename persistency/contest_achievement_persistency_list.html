@@ -1,0 +1,22 @@
+<ng-include src="'templates/three_column.html'"></ng-include>
+
+<script type="text/ng-template" id="content.html">
+        <div class="additional-tab">
+            <div class="container home appl">
+                <div id="achievementTab">
+                    <div ng-include="currentachievementTab"></div>
+                </div>
+            </div>
+        </div>
+</script>
+<script type="text/ng-template" id="headerTab.html">
+    <div class="tabs-non-scroll">
+    <div class="touch-tab two-menu">
+        <ul class="touch-tab-list">
+            <li ng-repeat="achievementTab in achievementTabs" class="waves-effect" ng-class="{active:isActiveTab(achievementTab.url)}"
+                ng-click="onClickTab(achievementTab)">{{achievementTab.title}}
+            </li>
+        </ul>
+    </div>
+        </div>
+</script>
